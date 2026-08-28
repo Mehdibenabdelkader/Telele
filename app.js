@@ -180,13 +180,15 @@ document.addEventListener('keydown',e=>{
 window.addEventListener('resize',()=>{measure();});
 
 /* ---------- boot ---------- */
-render(`Hey — this is the prompter.
+render(`Hey, this is TELELE.
 
 // look at the lens, not the screen
 
-Paste your script in the editor. Blank lines become paragraphs. The amber line is your eye line: keep the sentence you are saying right there, and the camera sees you looking straight ahead.
+Paste your script in the editor and click Save. Blank lines create paragraph breaks. Lines starting with // are cue notes — they show up in amber as reminders and are not counted in your read time.
 
-Speed is set in words per minute, not a made-up number, so 135 wpm here really is 135 wpm out of your mouth.`);
+Use the bottom bar to set your speed in words per minute, adjust font size, line gap, margins, and eye line position. You can also switch themes, change the typeface, and mirror the text for a physical teleprompter setup.
+
+The phone side on the right is space for your camera — drag the grip to resize it, or hide it with the Phone side button.`);
 apply(); ta.value=raw; editor.style.display='none'; clearBtn.style.display='none';
 
 const welcome=$('#welcome');
