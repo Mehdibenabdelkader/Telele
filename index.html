@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A teleprompter that runs in your browser. Nothing is uploaded.">
+<meta name="theme-color" content="#0b0a08">
+<title>telele — teleprompter by fluka</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+  <header>
+    <div class="brand">PROMPTER <span>// fluka</span></div>
+    <input type="text" id="name" value="untitled script" size="18" aria-label="Script name">
+    <select id="saved" aria-label="Saved scripts"><option value="">— saved —</option></select>
+    <button id="save">Save</button>
+    <button id="del">Delete</button>
+    <div class="grow"></div>
+    <div class="stat"><b id="wc">0</b> words · <b id="eta">0:00</b> read · <b id="clock">0:00</b> elapsed</div>
+    <button id="edit">Edit text</button>
+    <button id="full">Fullscreen</button>
+  </header>
+
+  <div id="stage">
+    <div id="pane" style="width:52%">
+      <div id="view" class="dark">
+        <div id="shadeTop"></div>
+        <div id="scroll"><div id="text"></div></div>
+        <div id="shadeBot"></div>
+        <div id="band"><i class="line"></i><i class="tick t1"></i><i class="tick t2"></i><i class="tick t3"></i><i class="tick t4"></i></div>
+        <div id="done">END OF SCRIPT — PRESS R TO RESET</div>
+        <div id="count">3</div>
+        <div id="progress"></div>
+      </div>
+
+      <div id="editor">
+        <textarea id="ta" spellcheck="false" placeholder="Paste or write your script here.
+
+Blank lines make paragraphs.
+
+// lines starting with two slashes are cue notes — look at camera, hold up hand, b-roll here. They are not counted in your read time."></textarea>
+        <div class="edbar">
+          <button id="start" class="go">Load &amp; start</button>
+          <button id="load">Load only</button>
+          <button id="clear">Clear</button>
+          <span class="stat" id="edstat"></span>
+        </div>
+        <div class="keys">
+          <kbd>space</kbd> play / pause &nbsp; <kbd>R</kbd> back to top &nbsp; <kbd>↑ ↓</kbd> nudge lines &nbsp;
+          <kbd>[ ]</kbd> speed &nbsp; <kbd>- =</kbd> font size &nbsp; <kbd>M</kbd> mirror &nbsp;
+          <kbd>F</kbd> fullscreen &nbsp; <kbd>E</kbd> edit &nbsp; <kbd>Esc</kbd> stop
+        </div>
+      </div>
+    </div>
+
+    <div id="grip" role="separator" aria-label="Resize prompter" tabindex="0"></div>
+
+    <div id="free">
+      <div class="freehint"><b>PHONE SIDE</b>drag the bar to give your camera<br>as much room as it needs</div>
+    </div>
+  </div>
+
+  <div id="deck">
+    <div class="row">
+      <button id="play" class="go">Start</button>
+      <button id="reset">Top</button>
+      <div class="ctl"><label for="wpm">Speed</label><input type="range" id="wpm" min="60" max="260" value="135"><output id="wpmO">135</output><label>wpm</label></div>
+      <div class="ctl"><label for="size">Font</label><input type="range" id="size" min="18" max="110" value="44"><output id="sizeO">44</output></div>
+      <div class="ctl"><label for="lh">Line gap</label><input type="range" id="lh" min="110" max="220" value="145"><output id="lhO">1.45</output></div>
+      <div class="ctl"><label for="pad">Margins</label><input type="range" id="pad" min="0" max="22" value="6"><output id="padO">6%</output></div>
+    </div>
+    <div class="row">
+      <div class="ctl"><label for="focus">Eye line</label><input type="range" id="focus" min="15" max="85" value="42"><output id="focusO">42%</output></div>
+      <button id="dim" class="on">Dim edges</button>
+      <button id="mir">Mirror</button>
+      <button id="dock">Dock right</button>
+      <select id="theme" aria-label="Colors">
+        <option value="dark">White on black</option>
+        <option value="amber">Amber on black</option>
+        <option value="paper">Black on paper</option>
+      </select>
+      <select id="face" aria-label="Typeface">
+        <option value="var(--sans)">Sans</option>
+        <option value="var(--mono)">Mono</option>
+        <option value="var(--serif)">Serif</option>
+      </select>
+      <select id="dir" aria-label="Text direction">
+        <option value="ltr">Left to right</option>
+        <option value="rtl">Right to left</option>
+      </select>
+      <div class="ctl"><label for="cd">Countdown</label><select id="cd"><option>0</option><option selected>3</option><option>5</option></select></div>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+:root{
+    --bg:#0b0a08;
+    --panel:#100e0b;
+    --rule:#2b2620;
+    --phos:#ffb000;
+    --phos-dim:#8a5f16;
+    --ink:#efe7d8;
+    --mute:#7d7466;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, "Segoe UI", Inter, system-ui, sans-serif;
+    --serif: Georgia, "Iowan Old Style", serif;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{
+    background:var(--bg);color:var(--ink);font-family:var(--mono);
+    overflow:hidden;-webkit-font-smoothing:antialiased;
+  }
+  button,select,input{font-family:inherit;color:inherit}
+  button{background:none;border:1px solid var(--rule);color:var(--ink);
+    padding:6px 10px;border-radius:2px;cursor:pointer;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+  button:hover{border-color:var(--phos-dim);color:var(--phos)}
+  button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--phos);outline-offset:2px}
+  button.on{border-color:var(--phos);color:var(--phos)}
+  button.go{border-color:var(--phos);color:var(--bg);background:var(--phos);font-weight:700}
+
+  /* ---------- shell ---------- */
+  #app{height:100%;display:flex;flex-direction:column}
+  header{
+    display:flex;align-items:center;gap:14px;padding:8px 12px;
+    border-bottom:1px solid var(--rule);background:var(--panel);flex:none;
+  }
+  .brand{color:var(--phos);font-size:12px;letter-spacing:.22em}
+  .brand span{color:var(--mute)}
+  .grow{flex:1}
+  .stat{font-size:11px;color:var(--mute);letter-spacing:.08em}
+  .stat b{color:var(--ink);font-weight:500}
+
+  /* ---------- stage ---------- */
+  #stage{flex:1;display:flex;min-height:0;position:relative}
+  #stage.right{flex-direction:row-reverse}
+  #pane{position:relative;min-width:240px;display:flex;flex-direction:column;background:#000}
+  #free{flex:1;display:flex;align-items:center;justify-content:center;min-width:0}
+  .freehint{color:#3a352d;font-size:11px;letter-spacing:.14em;text-align:center;line-height:2;padding:20px}
+  .freehint b{display:block;color:#544d42;font-size:13px}
+  #grip{width:10px;flex:none;cursor:col-resize;background:
+    repeating-linear-gradient(to bottom,var(--rule) 0 2px,transparent 2px 7px);
+    border-left:1px solid var(--rule);border-right:1px solid var(--rule)}
+  #grip:hover{background:repeating-linear-gradient(to bottom,var(--phos-dim) 0 2px,transparent 2px 7px)}
+
+  /* ---------- editor ---------- */
+  #editor{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--panel);z-index:5}
+  #editor textarea{
+    flex:1;width:100%;background:#080706;border:0;border-bottom:1px solid var(--rule);
+    padding:18px;font-size:15px;line-height:1.7;resize:none;color:var(--ink);
+  }
+  #editor textarea::placeholder{color:#4a443b}
+  .edbar{display:flex;gap:8px;align-items:center;padding:10px;flex-wrap:wrap}
+  .keys{padding:10px 18px;border-top:1px solid var(--rule);color:var(--mute);font-size:10.5px;line-height:1.9;letter-spacing:.05em}
+  .keys kbd{color:var(--phos);border:1px solid var(--rule);padding:0 5px;border-radius:2px}
+
+  /* ---------- prompt view ---------- */
+  #view{flex:1;position:relative;overflow:hidden}
+  #scroll{position:absolute;left:0;right:0;top:0;will-change:transform}
+  #text{padding:0 6% ;font-family:var(--sans);font-weight:600;line-height:1.45;
+    white-space:pre-wrap;word-wrap:break-word;color:#fff}
+  #text .cue{color:var(--phos);font-family:var(--mono);font-weight:400;
+    font-size:.5em;letter-spacing:.1em;opacity:.8;display:block;padding:.4em 0}
+  #text .p{margin:0 0 .7em}
+
+  /* focus band — the signature */
+  #band{position:absolute;left:0;right:0;pointer-events:none;z-index:3}
+  #band .line{position:absolute;left:0;right:0;height:0;border-top:1px solid var(--phos);opacity:.55}
+  #band .tick{position:absolute;width:14px;height:14px;border:2px solid var(--phos)}
+  .t1{left:8px;top:-14px;border-right:0;border-bottom:0}
+  .t2{right:8px;top:-14px;border-left:0;border-bottom:0}
+  .t3{left:8px;bottom:-14px;border-right:0;border-top:0}
+  .t4{right:8px;bottom:-14px;border-left:0;border-top:0}
+  #shadeTop,#shadeBot{position:absolute;left:0;right:0;pointer-events:none;z-index:2;
+    background:#000;opacity:0;transition:opacity .2s}
+  #view.dimmed #shadeTop,#view.dimmed #shadeBot{opacity:.62}
+  #progress{position:absolute;left:0;bottom:0;height:2px;background:var(--phos);width:0;z-index:6}
+  #count{position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+    font-size:22vh;color:var(--phos);z-index:8;background:rgba(0,0,0,.8);font-family:var(--mono)}
+  #done{position:absolute;left:0;right:0;bottom:44px;text-align:center;color:var(--phos);
+    font-size:12px;letter-spacing:.2em;display:none;z-index:7}
+
+  /* ---------- control deck ---------- */
+  #deck{border-top:1px solid var(--rule);background:var(--panel);flex:none;transition:opacity .3s}
+  #deck.hidden{opacity:0;pointer-events:none}
+  .row{display:flex;gap:14px;align-items:center;padding:8px 12px;flex-wrap:wrap}
+  .row+.row{border-top:1px solid #1a1712}
+  .ctl{display:flex;align-items:center;gap:7px}
+  .ctl label{font-size:10px;color:var(--mute);letter-spacing:.12em;text-transform:uppercase}
+  .ctl output{font-size:11px;color:var(--phos);min-width:34px;text-align:right}
+  input[type=range]{-webkit-appearance:none;appearance:none;height:2px;background:var(--rule);width:96px}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;
+    background:var(--phos);border-radius:50%;cursor:pointer}
+  input[type=range]::-moz-range-thumb{width:12px;height:12px;background:var(--phos);border:0;border-radius:50%}
+  select{background:#080706;border:1px solid var(--rule);padding:5px 6px;font-size:11px;border-radius:2px}
+  input[type=text]{background:#080706;border:1px solid var(--rule);padding:5px 8px;font-size:12px;border-radius:2px}
+
+  /* themes for reading surface */
+  #view.paper{background:#f4efe4}
+  #view.paper #text{color:#000}
+  #view.paper #text .cue{color:#8a5f16}
+  #view.amber #text{color:var(--phos)}
+  #view.mirrorH #scroll{transform-origin:center}
+  @media (prefers-reduced-motion:reduce){#deck{transition:none}}
