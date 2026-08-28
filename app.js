@@ -131,10 +131,11 @@ $('#mir').onclick=e=>{mirror=!mirror;e.target.classList.toggle('on');draw();};
 $('#dock').onclick=e=>{stage.classList.toggle('right');
   e.target.textContent=stage.classList.contains('right')?'Dock left':'Dock right';layout();};
 $('#full').onclick=()=>{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();};
-$('#edit').onclick=()=>{pause();editor.style.display='flex';ta.value=raw;ta.focus();};
+const editBtn=$('#edit'), clearBtn=$('#clear');
+function openEditor(){pause();editor.style.display='flex';ta.value=raw;ta.focus();editBtn.textContent='Save';clearBtn.style.display='inline-block';}
+function closeEditor(){render(ta.value);editor.style.display='none';editBtn.textContent='Edit text';clearBtn.style.display='none';}
+editBtn.onclick=()=>{ editor.style.display==='none' ? openEditor() : closeEditor(); };
 $('#clear').onclick=()=>{ta.value='';ta.focus();};
-$('#load').onclick=()=>{render(ta.value);editor.style.display='none';};
-$('#start').onclick=()=>{render(ta.value);editor.style.display='none';play();};
 ta.addEventListener('input',()=>{
   const w=(ta.value.replace(/^\s*\/\/.*$/gm,'').match(/\S+/g)||[]).length;
   $('#edstat').textContent=w+' words · about '+fmt(w/(+$('#wpm').value)*60)+' at current speed';
@@ -171,4 +172,4 @@ render(`Hey — this is the prompter.
 Paste your script in the editor. Blank lines become paragraphs. The amber line is your eye line: keep the sentence you are saying right there, and the camera sees you looking straight ahead.
 
 Speed is set in words per minute, not a made-up number, so 135 wpm here really is 135 wpm out of your mouth.`);
-apply(); ta.value=raw; editor.style.display='none';
+apply(); ta.value=raw; editor.style.display='none'; clearBtn.style.display='none';

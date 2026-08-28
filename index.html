@@ -13,9 +13,11 @@
 <div id="app">
   <header>
     <div class="brand">TELELE</div>
+    <button id="play" class="go">Start</button>
+    <button id="edit">Edit text</button>
+    <button id="clear">Clear</button>
     <div class="grow"></div>
     <div class="stat"><b id="wc">0</b> words · <b id="eta">0:00</b> read · <b id="clock">0:00</b> elapsed</div>
-    <button id="edit">Edit text</button>
     <button id="full">Fullscreen</button>
   </header>
 
@@ -38,9 +40,6 @@ Blank lines make paragraphs.
 
 // lines starting with two slashes are cue notes — look at camera, hold up hand, b-roll here. They are not counted in your read time."></textarea>
         <div class="edbar">
-          <button id="start" class="go">Load &amp; start</button>
-          <button id="load">Load only</button>
-          <button id="clear">Clear</button>
           <span class="stat" id="edstat"></span>
         </div>
         <div class="keys">
@@ -60,7 +59,6 @@ Blank lines make paragraphs.
 
   <div id="deck">
     <div class="row">
-      <button id="play" class="go">Start</button>
       <button id="reset">Top</button>
       <div class="ctl"><label for="wpm">Speed</label><input type="range" id="wpm" min="60" max="260" value="135"><output id="wpmO">135</output><label>wpm</label></div>
       <div class="ctl"><label for="size">Font</label><input type="range" id="size" min="18" max="110" value="44"><output id="sizeO">44</output></div>
