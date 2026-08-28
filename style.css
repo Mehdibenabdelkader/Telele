@@ -108,4 +108,8 @@
   #view.mirrorH #scroll{transform-origin:center}
   @media (prefers-reduced-motion:reduce){#deck{transition:none}}
 
-#made-by{margin-left:auto;font-size:11px;color:var(--muted);opacity:.45;white-space:nowrap}
+#made-by{margin-left:auto;font-size:11px;color:var(--muted);opacity:.45;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.made-by-link{color:inherit;text-decoration:underline;text-underline-offset:2px;opacity:.8;transition:opacity .15s}
+.made-by-link:hover{opacity:1}
+.social-icon{color:inherit;display:flex;align-items:center;opacity:.8;transition:opacity .15s}
+.social-icon:hover{opacity:1}
