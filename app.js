@@ -5,26 +5,6 @@ const pane=$('#pane'), view=$('#view'), scroll=$('#scroll'), textEl=$('#text'),
 
 let raw='', words=0, y=0, playing=false, last=0, pxPerSec=0, elapsed=0, finished=false;
 
-/* ---------- storage: works as an artifact, as a local file, or neither ---------- */
-const store = {
-  async get(k){ try{
-      if(window.storage){const r=await window.storage.get(k); return r?r.value:null;}
-      return localStorage.getItem(k);
-    }catch(e){return null} },
-  async set(k,v){ try{
-      if(window.storage) return await window.storage.set(k,v);
-      localStorage.setItem(k,v);
-    }catch(e){} },
-  async list(){ try{
-      if(window.storage){const r=await window.storage.list('script:'); return r?r.keys:[];}
-      return Object.keys(localStorage).filter(k=>k.startsWith('script:'));
-    }catch(e){return []} },
-  async del(k){ try{
-      if(window.storage) return await window.storage.delete(k);
-      localStorage.removeItem(k);
-    }catch(e){} }
-};
-
 /* ---------- build the script ---------- */
 function render(src){
   raw = src;
@@ -160,29 +140,6 @@ ta.addEventListener('input',()=>{
   $('#edstat').textContent=w+' words · about '+fmt(w/(+$('#wpm').value)*60)+' at current speed';
 });
 
-/* ---------- saved scripts ---------- */
-async function refresh(){
-  const keys=await store.list(); const sel=$('#saved');
-  sel.innerHTML='<option value="">— saved —</option>';
-  keys.sort().forEach(k=>{const o=document.createElement('option');
-    o.value=k;o.textContent=k.replace('script:','');sel.appendChild(o);});
-}
-$('#save').onclick=async()=>{
-  const n=$('#name').value.trim()||'untitled script';
-  await store.set('script:'+n, editor.style.display!=='none'?ta.value:raw);
-  await refresh(); $('#saved').value='script:'+n;
-};
-$('#saved').onchange=async e=>{
-  if(!e.target.value) return;
-  const v=await store.get(e.target.value);
-  if(v!=null){ $('#name').value=e.target.value.replace('script:','');
-    ta.value=v; render(v); editor.style.display='none'; }
-};
-$('#del').onclick=async()=>{
-  const k=$('#saved').value; if(!k) return;
-  await store.del(k); await refresh();
-};
-
 /* ---------- keys ---------- */
 document.addEventListener('keydown',e=>{
   if(e.target.tagName==='TEXTAREA'||e.target.tagName==='INPUT') {
@@ -214,4 +171,4 @@ render(`Hey — this is the prompter.
 Paste your script in the editor. Blank lines become paragraphs. The amber line is your eye line: keep the sentence you are saying right there, and the camera sees you looking straight ahead.
 
 Speed is set in words per minute, not a made-up number, so 135 wpm here really is 135 wpm out of your mouth.`);
-apply(); refresh(); ta.value=raw; editor.style.display='none';
+apply(); ta.value=raw; editor.style.display='none';
