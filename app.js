@@ -130,6 +130,21 @@ $('#dim').onclick=e=>{view.classList.toggle('dimmed');e.target.classList.toggle(
 $('#mir').onclick=e=>{mirror=!mirror;e.target.classList.toggle('on');draw();};
 $('#dock').onclick=e=>{stage.classList.toggle('right');
   e.target.textContent=stage.classList.contains('right')?'Dock left':'Dock right';layout();};
+const grip=$('#grip'), free=$('#free');
+let phoneVisible=true, savedPaneWidth='52%';
+$('#phone').onclick=e=>{
+  phoneVisible=!phoneVisible;
+  if(phoneVisible){
+    pane.style.width=savedPaneWidth;
+    grip.style.display=''; free.style.display='';
+  } else {
+    savedPaneWidth=pane.style.width||'52%';
+    grip.style.display='none'; free.style.display='none';
+    pane.style.width='100%';
+  }
+  e.target.classList.toggle('on',phoneVisible);
+  layout();
+};
 $('#full').onclick=()=>{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();};
 const editBtn=$('#edit'), clearBtn=$('#clear');
 function openEditor(){pause();editor.style.display='flex';ta.value=raw;ta.focus();editBtn.textContent='Save';clearBtn.style.display='inline-block';}
