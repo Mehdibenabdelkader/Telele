@@ -146,9 +146,9 @@ $('#phone').onclick=e=>{
   layout();
 };
 $('#full').onclick=()=>{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();};
-const editBtn=$('#edit'), clearBtn=$('#clear');
-function openEditor(){pause();editor.style.display='flex';ta.value=raw;ta.focus();editBtn.textContent='Save';clearBtn.style.display='inline-block';}
-function closeEditor(){render(ta.value);editor.style.display='none';editBtn.textContent='Edit text';clearBtn.style.display='none';}
+const editBtn=$('#edit'), clearBtn=$('#clear'), playBtn=$('#play'), resetBtn=$('#reset');
+function openEditor(){pause();editor.style.display='flex';ta.value=raw;ta.focus();editBtn.textContent='Save';clearBtn.style.display='inline-block';playBtn.style.display='none';resetBtn.style.display='none';}
+function closeEditor(){render(ta.value);editor.style.display='none';editBtn.textContent='Edit text';clearBtn.style.display='none';playBtn.style.display='';resetBtn.style.display='';}
 editBtn.onclick=()=>{ editor.style.display==='none' ? openEditor() : closeEditor(); };
 $('#clear').onclick=()=>{ta.value='';ta.focus();};
 ta.addEventListener('input',()=>{
