@@ -173,3 +173,7 @@ Paste your script in the editor. Blank lines become paragraphs. The amber line i
 
 Speed is set in words per minute, not a made-up number, so 135 wpm here really is 135 wpm out of your mouth.`);
 apply(); ta.value=raw; editor.style.display='none'; clearBtn.style.display='none';
+
+const welcome=$('#welcome');
+if(!localStorage.getItem('telele-visited')) welcome.style.display='flex';
+$('#welcome-close').onclick=()=>{ welcome.style.display='none'; localStorage.setItem('telele-visited','1'); };
